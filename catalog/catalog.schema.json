@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Urbanizacion Toolkit Catalog",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "path", "kind", "domain", "summary", "inputs", "outputs", "safety"],
+    "properties": {
+      "id": { "type": "string" },
+      "path": { "type": "string" },
+      "kind": { "enum": ["tool", "script", "skill", "command", "workflow"] },
+      "domain": { "enum": ["office", "bc3", "traceability", "normativa", "bootstrap", "automation"] },
+      "summary": { "type": "string" },
+      "inputs": { "type": "array", "items": { "type": "string" } },
+      "outputs": { "type": "array", "items": { "type": "string" } },
+      "safety": { "enum": ["read-only", "safe-write", "dangerous"] },
+      "tags": { "type": "array", "items": { "type": "string" } }
+    }
+  }
+}

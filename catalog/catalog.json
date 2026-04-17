@@ -1,0 +1,35 @@
+[
+  {
+    "id": "check-office-mojibake",
+    "path": "tools/office/check_office_mojibake.ps1",
+    "kind": "tool",
+    "domain": "office",
+    "summary": "Comprueba mojibake y corrupcion textual en contenedores Office.",
+    "inputs": ["docx", "xlsx", "xlsm", "pptx", "office xml"],
+    "outputs": ["informe de incidencias"],
+    "safety": "read-only",
+    "tags": ["encoding", "office", "quality"]
+  },
+  {
+    "id": "check-bc3-integrity",
+    "path": "tools/bc3/check_bc3_integrity.ps1",
+    "kind": "tool",
+    "domain": "bc3",
+    "summary": "Valida integridad estructural basica de BC3.",
+    "inputs": ["bc3"],
+    "outputs": ["informe de integridad"],
+    "safety": "read-only",
+    "tags": ["bc3", "budget", "quality"]
+  },
+  {
+    "id": "run-project-closeout",
+    "path": "scripts/run_project_closeout.ps1",
+    "kind": "script",
+    "domain": "traceability",
+    "summary": "Orquesta cierre rapido o mixto sobre rutas concretas.",
+    "inputs": ["docx", "xlsx", "bc3", "md", "csv"],
+    "outputs": ["resumen de controles"],
+    "safety": "safe-write",
+    "tags": ["closeout", "traceability", "project"]
+  }
+]

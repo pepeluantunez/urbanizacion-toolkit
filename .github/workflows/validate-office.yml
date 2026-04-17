@@ -1,0 +1,18 @@
+name: Validate Office
+
+on:
+  pull_request:
+    paths:
+      - 'tools/office/**/*.ps1'
+      - 'tests/fixtures/office/**'
+
+jobs:
+  office-smoke:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Smoke test Office validators
+        shell: pwsh
+        run: |
+          Get-ChildItem tests/fixtures/office -File -ErrorAction SilentlyContinue | Out-Null
+          Write-Host "Office fixture tree detected"

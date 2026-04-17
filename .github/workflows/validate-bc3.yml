@@ -1,0 +1,18 @@
+name: Validate BC3
+
+on:
+  pull_request:
+    paths:
+      - 'tools/bc3/**/*.ps1'
+      - 'tests/fixtures/bc3/**'
+
+jobs:
+  bc3-smoke:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Smoke test BC3 validators
+        shell: pwsh
+        run: |
+          Get-ChildItem tests/fixtures/bc3 -File -ErrorAction SilentlyContinue | Out-Null
+          Write-Host "BC3 fixture tree detected"

@@ -1,0 +1,8 @@
+.codex_tmp/
+.claude/handoffs/
+*.log
+*.tmp
+~$*.docx
+~$*.xlsx
+bin/
+obj/
