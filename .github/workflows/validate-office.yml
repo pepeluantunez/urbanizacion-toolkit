@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'tools/office/**/*.ps1'
+      - 'tests/fixtures/generate-office-fixtures.ps1'
       - 'tests/fixtures/office/**'
 
 jobs:
@@ -14,5 +15,9 @@ jobs:
       - name: Smoke test Office validators
         shell: pwsh
         run: |
-          Get-ChildItem tests/fixtures/office -File -ErrorAction SilentlyContinue | Out-Null
-          Write-Host "Office fixture tree detected"
+          & .\tests\fixtures\generate-office-fixtures.ps1
+          if (-not (Test-Path .\tests\fixtures\office\sample-valid.docx)) { throw "Missing sample-valid.docx" }
+          if (-not (Test-Path .\tests\fixtures\office\sample-valid.xlsx)) { throw "Missing sample-valid.xlsx" }
+          & .\tools\office\check_office_mojibake.ps1 -Paths @('.\tests\fixtures\office\sample-valid.docx', '.\tests\fixtures\office\sample-valid.xlsx')
+          & .\tools\office\check_docx_tables_consistency.ps1 -Paths @('.\tests\fixtures\office\sample-valid.docx')
+          & .\tools\office\check_excel_formula_guard.ps1 -Paths @('.\tests\fixtures\office\sample-valid.xlsx')

@@ -14,5 +14,5 @@ jobs:
       - name: Smoke test traceability validators
         shell: pwsh
         run: |
-          Get-ChildItem tests/fixtures/traceability -File -ErrorAction SilentlyContinue | Out-Null
-          Write-Host "Traceability fixture tree detected"
+          if (-not (Test-Path .\tests\fixtures\traceability\budget.bc3)) { throw "Missing budget.bc3" }
+          powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\traceability\check_traceability_consistency.ps1 -Paths .\tests\fixtures\traceability -Needles TKT-1.01

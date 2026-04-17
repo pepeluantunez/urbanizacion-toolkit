@@ -14,5 +14,5 @@ jobs:
       - name: Smoke test BC3 validators
         shell: pwsh
         run: |
-          Get-ChildItem tests/fixtures/bc3 -File -ErrorAction SilentlyContinue | Out-Null
-          Write-Host "BC3 fixture tree detected"
+          if (-not (Test-Path .\tests\fixtures\bc3\sample-valid.bc3)) { throw "Missing sample-valid.bc3" }
+          powershell -NoProfile -ExecutionPolicy Bypass -File .\tools\bc3\check_bc3_integrity.ps1 -Paths .\tests\fixtures\bc3\sample-valid.bc3

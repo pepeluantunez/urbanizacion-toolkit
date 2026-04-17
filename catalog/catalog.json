@@ -11,6 +11,28 @@
     "tags": ["encoding", "office", "quality"]
   },
   {
+    "id": "check-docx-tables-consistency",
+    "path": "tools/office/check_docx_tables_consistency.ps1",
+    "kind": "tool",
+    "domain": "office",
+    "summary": "Valida tablas visibles, captions y coherencia tipografica en DOCX.",
+    "inputs": ["docx"],
+    "outputs": ["informe de consistencia"],
+    "safety": "read-only",
+    "tags": ["docx", "tables", "layout"]
+  },
+  {
+    "id": "check-excel-formula-guard",
+    "path": "tools/office/check_excel_formula_guard.ps1",
+    "kind": "tool",
+    "domain": "office",
+    "summary": "Protege formulas en libros Excel y detecta perdidas o cambios inesperados.",
+    "inputs": ["xlsx", "xlsm"],
+    "outputs": ["manifest o informe de formulas"],
+    "safety": "read-only",
+    "tags": ["excel", "formulas", "quality"]
+  },
+  {
     "id": "check-bc3-integrity",
     "path": "tools/bc3/check_bc3_integrity.ps1",
     "kind": "tool",
@@ -22,6 +44,50 @@
     "tags": ["bc3", "budget", "quality"]
   },
   {
+    "id": "check-bc3-import-parity",
+    "path": "tools/bc3/check_bc3_import_parity.ps1",
+    "kind": "tool",
+    "domain": "bc3",
+    "summary": "Comprueba paridad estructural entre BC3 maestro y copia de importacion.",
+    "inputs": ["bc3", "map.csv"],
+    "outputs": ["informe de paridad"],
+    "safety": "read-only",
+    "tags": ["bc3", "presto", "parity"]
+  },
+  {
+    "id": "check-traceability-consistency",
+    "path": "tools/traceability/check_traceability_consistency.ps1",
+    "kind": "tool",
+    "domain": "traceability",
+    "summary": "Busca anclas de coherencia entre BC3, Office y archivos de texto.",
+    "inputs": ["bc3", "docx", "xlsx", "csv", "md", "txt", "html", "xml"],
+    "outputs": ["informe de trazabilidad"],
+    "safety": "read-only",
+    "tags": ["traceability", "consistency", "cross-check"]
+  },
+  {
+    "id": "run-traceability-profile",
+    "path": "tools/traceability/run_traceability_profile.ps1",
+    "kind": "tool",
+    "domain": "traceability",
+    "summary": "Ejecuta revisiones de trazabilidad por perfiles declarados.",
+    "inputs": ["profile", "needles"],
+    "outputs": ["informe por perfil"],
+    "safety": "read-only",
+    "tags": ["traceability", "profiles", "audit"]
+  },
+  {
+    "id": "check-normativa-scope",
+    "path": "tools/normativa/check_normativa_scope.ps1",
+    "kind": "tool",
+    "domain": "normativa",
+    "summary": "Revisa presencia y alcance de referencias normativas en documentos o carpetas.",
+    "inputs": ["docx", "md", "txt", "folders"],
+    "outputs": ["informe de alcance normativo"],
+    "safety": "read-only",
+    "tags": ["normativa", "scope", "audit"]
+  },
+  {
     "id": "run-project-closeout",
     "path": "scripts/run_project_closeout.ps1",
     "kind": "script",
@@ -31,5 +97,27 @@
     "outputs": ["resumen de controles"],
     "safety": "safe-write",
     "tags": ["closeout", "traceability", "project"]
+  },
+  {
+    "id": "run-estandar-proyecto",
+    "path": "scripts/run_estandar_proyecto.ps1",
+    "kind": "script",
+    "domain": "traceability",
+    "summary": "Orquesta cierre estandar del proyecto con trazabilidad opcional.",
+    "inputs": ["paths", "modo", "traceProfile"],
+    "outputs": ["resumen de cierre"],
+    "safety": "safe-write",
+    "tags": ["closeout", "traceability", "standard"]
+  },
+  {
+    "id": "install-project-toolkit",
+    "path": "scripts/install_project_toolkit.ps1",
+    "kind": "script",
+    "domain": "bootstrap",
+    "summary": "Instala el toolkit reusable en un destino objetivo.",
+    "inputs": ["targetPath"],
+    "outputs": ["estructura instalada"],
+    "safety": "safe-write",
+    "tags": ["bootstrap", "toolkit", "install"]
   }
 ]

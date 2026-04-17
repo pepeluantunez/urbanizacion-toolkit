@@ -1,3 +1,9 @@
 # Traceability Fixtures
 
-Coloca aqui fixtures pequenos para validar herramientas de trazabilidad.
+Fixtures de trazabilidad minima entre BC3 y texto.
+
+Archivos esperados:
+
+- `budget.bc3`
+- `notes.md`
+- `measurements.csv`

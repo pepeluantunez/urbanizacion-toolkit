@@ -1,3 +1,7 @@
 # BC3 Fixtures
 
-Coloca aqui fixtures pequenos para validar herramientas BC3.
+Fixtures BC3 pequenos para validar integridad y controles de presupuesto.
+
+Archivos esperados:
+
+- `sample-valid.bc3`
