@@ -2,26 +2,32 @@
 
 Toolkit reusable para proyectos tecnicos de urbanizacion.
 
-## Contiene
+## Rol del repo
 
-- verificadores Office, BC3, trazabilidad y normativa
-- scripts genericos de cierre y control
-- catalogo de herramientas
-- fixtures y tests
-- automatizaciones y MCP reutilizables
+- reglas globales reutilizables
+- taxonomia de tareas y triage
+- ejecutores prioritarios
+- herramientas y scripts compartidos
+- catalogo y pruebas del ecosistema
+
+## Archivos clave
+
+- `AGENTS_CORE.md`: entrada corta del toolkit
+- `SYSTEM_RULES.md`: reglas globales
+- `TASK_TYPES.md`: tipos de tarea
+- `IGNORE_DEFAULTS.md`: ruido a excluir
+- `TRIAGE.md`: selector de tarea
+- `EJECUTORES_PRIORITARIOS.md`: automatizaciones prioritarias
 
 ## No contiene
 
 - entregables de proyectos
-- BC3 maestros de expedientes concretos
-- auditorias especificas de una obra
+- BC3 maestros de un expediente concreto
+- memoria, anejos o auditorias de una obra viva
 
 ## Familias
 
-- `tools/office`
-- `tools/bc3`
-- `tools/traceability`
-- `tools/normativa`
+- `tools/`
 - `scripts/`
 - `catalog/`
-- `tests/fixtures`
+- `tests/`
