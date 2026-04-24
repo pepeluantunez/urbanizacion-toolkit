@@ -29,6 +29,7 @@ Toolkit reusable para proyectos tecnicos de urbanizacion.
 
 - `tools/`
 - `tools/python/` para scripts canonicos de bc3 y Excel
+- `tools/automation/` para resolucion de rutas y busqueda segura sin depender del entorno
 - `scripts/`
 - `catalog/`
 - `tests/`

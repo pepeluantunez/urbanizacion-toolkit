@@ -1,0 +1,28 @@
+name: Validate JSON
+
+on:
+  pull_request:
+    paths:
+      - 'catalog/**/*.json'
+      - 'tests/fixtures/traceability/*.json'
+  push:
+    branches:
+      - main
+    paths:
+      - 'catalog/**/*.json'
+      - 'tests/fixtures/traceability/*.json'
+
+jobs:
+  json-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install check-jsonschema
+        run: python -m pip install check-jsonschema
+      - name: Validate catalog
+        run: check-jsonschema --schemafile catalog/catalog.schema.json catalog/catalog.json
+      - name: Validate traceability coverage fixture
+        run: check-jsonschema --schemafile catalog/traceability/coverage.schema.json tests/fixtures/traceability/coverage.sample.json

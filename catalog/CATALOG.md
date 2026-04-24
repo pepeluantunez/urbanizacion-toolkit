@@ -5,6 +5,8 @@
 | bc3-tools | tool | bc3 | safe-write | `tools/python/bc3_tools.py` | Opera BC3 de forma determinista: info, export, merge, recalc, validate y modificaciones controladas. |
 | excel-tools | tool | office | read-only | `tools/python/excel_tools.py` | Lee y extrae datos de Excel de forma determinista antes de cualquier analisis del LLM. |
 | mediciones-validator | tool | traceability | read-only | `tools/python/mediciones_validator.py` | Cruza cantidades BC3 vs Excel sin delegar el calculo al LLM. |
+| resolve-ecosystem-repo | tool | automation | read-only | `tools/automation/resolve_ecosystem_repo.ps1` | Resuelve rutas de repos hermanos o canonicos sin depender de memoria local del agente. |
+| find-in-workspace | tool | automation | read-only | `tools/automation/find_in_workspace.ps1` | Busca texto con fallback seguro cuando rg falla o no esta disponible. |
 | check-office-mojibake | tool | office | read-only | `tools/office/check_office_mojibake.ps1` | Comprueba mojibake y corrupcion textual en contenedores Office. |
 | check-docx-tables-consistency | tool | office | read-only | `tools/office/check_docx_tables_consistency.ps1` | Valida tablas visibles, captions y coherencia tipografica en DOCX. |
 | check-excel-formula-guard | tool | office | read-only | `tools/office/check_excel_formula_guard.ps1` | Protege formulas en libros Excel y detecta perdidas o cambios inesperados. |

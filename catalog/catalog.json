@@ -33,6 +33,28 @@
     "tags": ["traceability", "measurements", "excel", "bc3"]
   },
   {
+    "id": "resolve-ecosystem-repo",
+    "path": "tools/automation/resolve_ecosystem_repo.ps1",
+    "kind": "tool",
+    "domain": "automation",
+    "summary": "Resuelve rutas de repos hermanos o canonicos sin depender de memoria local del agente.",
+    "inputs": ["repo name", "start path"],
+    "outputs": ["ruta resuelta"],
+    "safety": "read-only",
+    "tags": ["ecosystem", "path", "bootstrap", "routing"]
+  },
+  {
+    "id": "find-in-workspace",
+    "path": "tools/automation/find_in_workspace.ps1",
+    "kind": "tool",
+    "domain": "automation",
+    "summary": "Busca texto con fallback seguro cuando rg falla o no esta disponible.",
+    "inputs": ["pattern", "path", "filesOnly"],
+    "outputs": ["matches", "file list"],
+    "safety": "read-only",
+    "tags": ["search", "fallback", "workspace", "routing"]
+  },
+  {
     "id": "check-office-mojibake",
     "path": "tools/office/check_office_mojibake.ps1",
     "kind": "tool",
