@@ -12,6 +12,9 @@ param(
 $ErrorActionPreference = 'Stop'
 [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
 
+$toolkitRoot = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
+$resolverScript = Join-Path $toolkitRoot 'tools\automation\resolve_ecosystem_repo.ps1'
+
 function Resolve-AbsolutePath {
     param(
         [Parameter(Mandatory = $true)]
@@ -32,6 +35,49 @@ function Get-ManifestProperties {
     param([Parameter(Mandatory = $true)]$Object)
 
     return @($Object.PSObject.Properties | Sort-Object Name)
+}
+
+function Resolve-RepoRoot {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$BasePath,
+
+        [Parameter(Mandatory = $true)]
+        [string]$RepoKey,
+
+        [Parameter(Mandatory = $true)]
+        $RepoDefinition
+    )
+
+    if ($RepoDefinition -is [string]) {
+        return Resolve-AbsolutePath -BasePath $BasePath -TargetPath $RepoDefinition
+    }
+
+    if ($null -ne $RepoDefinition.path -and -not [string]::IsNullOrWhiteSpace([string]$RepoDefinition.path)) {
+        return Resolve-AbsolutePath -BasePath $BasePath -TargetPath ([string]$RepoDefinition.path)
+    }
+
+    if ($null -ne $RepoDefinition.repo -and -not [string]::IsNullOrWhiteSpace([string]$RepoDefinition.repo)) {
+        if (-not (Test-Path -LiteralPath $resolverScript)) {
+            throw "No existe el resolvedor de repos del toolkit: $resolverScript"
+        }
+
+        $startPath = if ($null -ne $RepoDefinition.start_path -and -not [string]::IsNullOrWhiteSpace([string]$RepoDefinition.start_path)) {
+            Resolve-AbsolutePath -BasePath $BasePath -TargetPath ([string]$RepoDefinition.start_path)
+        }
+        else {
+            $BasePath
+        }
+
+        $resolved = & $resolverScript -RepoName ([string]$RepoDefinition.repo) -StartPath $startPath | Select-Object -First 1
+        if ([string]::IsNullOrWhiteSpace($resolved)) {
+            throw ("No se pudo resolver el repo '{0}' para '{1}'." -f $RepoDefinition.repo, $RepoKey)
+        }
+
+        return [string]$resolved
+    }
+
+    throw ("La definicion del repo '{0}' debe ser una ruta o un objeto con 'path' o 'repo'." -f $RepoKey)
 }
 
 function Get-ExistingFileHash {
@@ -116,6 +162,20 @@ function Convert-StatusToLabel {
     }
 }
 
+function Test-StatusFailsGuard {
+    param([Parameter(Mandatory = $true)]$Result)
+
+    if ($Result.Status -in @('owner-missing', 'owner-not-declared')) {
+        return $true
+    }
+
+    if ($Result.Mode -eq 'synced-copy' -and $Result.Status -in @('drift', 'partial', 'owner-only')) {
+        return $true
+    }
+
+    return $false
+}
+
 function Build-TextReport {
     param(
         [Parameter(Mandatory = $true)]$Manifest,
@@ -175,7 +235,7 @@ if ($null -eq $manifestJson.items -or @($manifestJson.items).Count -eq 0) {
 
 $repoRoots = @{}
 foreach ($repoProperty in (Get-ManifestProperties -Object $manifestJson.repos)) {
-    $repoRoots[$repoProperty.Name] = Resolve-AbsolutePath -BasePath $manifestDirectory -TargetPath ([string]$repoProperty.Value)
+    $repoRoots[$repoProperty.Name] = Resolve-RepoRoot -BasePath $manifestDirectory -RepoKey $repoProperty.Name -RepoDefinition $repoProperty.Value
 }
 
 $results = @()
@@ -229,6 +289,8 @@ Write-Output $content
 
 $driftCount = @($results | Where-Object { $_.Status -eq 'drift' }).Count
 $ownerMissingCount = @($results | Where-Object { $_.Status -in @('owner-missing', 'owner-not-declared') }).Count
-if ($FailOnDrift -and ($driftCount -gt 0 -or $ownerMissingCount -gt 0)) {
-    throw ("Alineacion fallida: drift={0}, owner_missing={1}" -f $driftCount, $ownerMissingCount)
+$guardFailureCount = @($results | Where-Object { Test-StatusFailsGuard -Result $_ }).Count
+$partialCount = @($results | Where-Object { $_.Status -in @('partial', 'owner-only') }).Count
+if ($FailOnDrift -and $guardFailureCount -gt 0) {
+    throw ("Alineacion fallida: drift={0}, owner_missing={1}, partial_or_owner_only={2}" -f $driftCount, $ownerMissingCount, $partialCount)
 }

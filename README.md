@@ -30,6 +30,7 @@ Toolkit reusable para proyectos tecnicos de urbanizacion.
 - `tools/`
 - `tools/python/` para scripts canonicos de bc3 y Excel
 - `tools/automation/` para resolucion de rutas y busqueda segura sin depender del entorno
+- `tools/automation/check_machine_guard.ps1` para validar contrato de repo + alineacion toolkit/plantilla/obra antes de dar un proyecto por sano
 - `scripts/`
 - `catalog/`
 - `tests/`

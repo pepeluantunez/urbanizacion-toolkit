@@ -55,6 +55,28 @@
     "tags": ["search", "fallback", "workspace", "routing"]
   },
   {
+    "id": "check-ecosystem-alignment-local",
+    "path": "tools/automation/check_ecosystem_alignment.ps1",
+    "kind": "tool",
+    "domain": "automation",
+    "summary": "Ejecuta localmente el checker canonico de alineacion del ecosistema usando el manifiesto del proyecto.",
+    "inputs": ["manifest path", "output format", "out path", "failOnDrift"],
+    "outputs": ["alignment report"],
+    "safety": "read-only",
+    "tags": ["ecosystem", "alignment", "guard", "project"]
+  },
+  {
+    "id": "check-machine-guard",
+    "path": "tools/automation/check_machine_guard.ps1",
+    "kind": "tool",
+    "domain": "automation",
+    "summary": "Ejecuta la guarda local minima del proyecto: contrato de repo y alineacion toolkit/plantilla/obra.",
+    "inputs": ["contract path", "alignment manifest path", "skip flags"],
+    "outputs": ["guard summary"],
+    "safety": "read-only",
+    "tags": ["guard", "repo-contract", "ecosystem", "bootstrap"]
+  },
+  {
     "id": "check-office-mojibake",
     "path": "tools/office/check_office_mojibake.ps1",
     "kind": "tool",
