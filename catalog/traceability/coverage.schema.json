@@ -1,0 +1,18 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Urbanizacion Traceability Coverage",
+  "type": "object",
+  "required": [
+    "word_tables_with_excel_source_pct",
+    "memoria_sections_backed_by_annex_pct",
+    "bc3_concepts_with_document_support_pct",
+    "outputs_with_authority_defined_pct"
+  ],
+  "properties": {
+    "word_tables_with_excel_source_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+    "memoria_sections_backed_by_annex_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+    "bc3_concepts_with_document_support_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+    "outputs_with_authority_defined_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  }
+}

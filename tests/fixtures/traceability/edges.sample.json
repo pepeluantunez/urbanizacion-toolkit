@@ -1,0 +1,17 @@
+﻿[
+  {
+    "from": "memoria-4.2",
+    "relation": "backs",
+    "to": "anejo-7"
+  },
+  {
+    "from": "anejo-7",
+    "relation": "derived_from",
+    "to": "excel-pluviales"
+  },
+  {
+    "from": "bc3-clp630",
+    "relation": "justifies",
+    "to": "anejo-7"
+  }
+]

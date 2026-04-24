@@ -62,12 +62,14 @@ if ($profileNames -notcontains $Profile) {
 
 $profileConfig = $json.$Profile
 $profileNeedles = @()
+$profileRequiredCategories = @()
 if ($profileConfig -is [System.Collections.IEnumerable] -and -not ($profileConfig -is [string]) -and -not ($profileConfig.PSObject.Properties.Name -contains 'paths')) {
     $inputPaths = @($profileConfig)
 }
 else {
     $inputPaths = @($profileConfig.paths)
     $profileNeedles = @($profileConfig.needles)
+    $profileRequiredCategories = @($profileConfig.required_categories)
 }
 
 if ($inputPaths.Count -eq 0) {
@@ -145,9 +147,19 @@ elseif ($profileNeedles.Count -gt 0) {
 }
 
 if ($effectiveNeedles.Count -gt 0) {
-    & $checker -Paths $resolved -Needles $effectiveNeedles
+    if ($profileRequiredCategories.Count -gt 0) {
+        & $checker -Paths $resolved -Needles $effectiveNeedles -RequiredCategories $profileRequiredCategories
+    }
+    else {
+        & $checker -Paths $resolved -Needles $effectiveNeedles
+    }
 } else {
-    & $checker -Paths $resolved
+    if ($profileRequiredCategories.Count -gt 0) {
+        & $checker -Paths $resolved -RequiredCategories $profileRequiredCategories
+    }
+    else {
+        & $checker -Paths $resolved
+    }
 }
 
 if ($Profile -in @('control_calidad_plan_obra', 'residuos_sys', 'todo_integral', 'memoria_integral')) {

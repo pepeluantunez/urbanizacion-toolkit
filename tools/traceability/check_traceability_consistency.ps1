@@ -4,6 +4,8 @@ param(
 
     [string[]]$Needles,
 
+    [string[]]$RequiredCategories,
+
     [string]$OutMarkdownPath,
 
     [int]$MaxAutoNeedles = 25
@@ -286,6 +288,16 @@ $contexts = foreach ($file in $files) {
 }
 
 $availableCategories = @($contexts | ForEach-Object { $_.Category } | Sort-Object -Unique)
+$effectiveRequiredCategories = if ($RequiredCategories -and @($RequiredCategories).Count -gt 0) {
+    @($RequiredCategories | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | Sort-Object -Unique)
+} else {
+    @($availableCategories)
+}
+$effectiveRequiredCategories = @($effectiveRequiredCategories | Where-Object { $_ -in $availableCategories } | Sort-Object -Unique)
+if ($effectiveRequiredCategories.Count -eq 0) {
+    $effectiveRequiredCategories = @($availableCategories)
+}
+
 $effectiveNeedles = if ($Needles -and @($Needles).Count -gt 0) {
     @($Needles | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | ForEach-Object { $_.Trim() } | Sort-Object -Unique)
 } else {
@@ -318,10 +330,10 @@ foreach ($needle in $effectiveNeedles) {
     } else {
         @()
     }
-    $missingCategories = @($availableCategories | Where-Object { $_ -notin $hitCategories })
+    $missingCategories = @($effectiveRequiredCategories | Where-Object { $_ -notin $hitCategories })
     $status = if (@($hitCategories).Count -eq 0) {
         'SIN_HUELLAS'
-    } elseif (@($hitCategories).Count -eq @($availableCategories).Count) {
+    } elseif (@($missingCategories).Count -eq 0) {
         'OK'
     } elseif (@($hitCategories).Count -ge 2) {
         'INCOMPLETA'
@@ -343,6 +355,7 @@ $reportLines += '# Revision de trazabilidad transversal'
 $reportLines += ''
 $reportLines += ("Archivos revisados: {0}" -f @($contexts).Count)
 $reportLines += ("Categorias presentes: {0}" -f ($availableCategories -join ', '))
+$reportLines += ("Categorias requeridas: {0}" -f ($effectiveRequiredCategories -join ', '))
 $reportLines += ("Anclas revisadas: {0}" -f @($results).Count)
 $reportLines += ''
 

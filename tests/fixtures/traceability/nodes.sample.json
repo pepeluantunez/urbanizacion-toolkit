@@ -1,0 +1,30 @@
+﻿[
+  {
+    "id": "memoria-4.2",
+    "type": "memoria_section",
+    "path": "DOCS/535.2.2_POU_MEMORIA.docx#4.2",
+    "authority": "local",
+    "status": "active"
+  },
+  {
+    "id": "anejo-7",
+    "type": "anejo",
+    "path": "DOCS/Documentos de Trabajo/7.- Red de Saneamiento - Pluviales/Anexo 7 - Pluviales.docx",
+    "authority": "local",
+    "status": "active"
+  },
+  {
+    "id": "excel-pluviales",
+    "type": "excel_source",
+    "path": "DOCS/Documentos de Trabajo/7.- Red de Saneamiento - Pluviales/Red_Pluviales_Trazable.xls",
+    "authority": "local",
+    "status": "active"
+  },
+  {
+    "id": "bc3-clp630",
+    "type": "bc3_concept",
+    "path": "PRESUPUESTO/535.2.bc3#CLP630",
+    "authority": "local",
+    "status": "active"
+  }
+]

@@ -1,0 +1,10 @@
+﻿{
+  "word_tables_with_excel_source_pct": 75,
+  "memoria_sections_backed_by_annex_pct": 80,
+  "bc3_concepts_with_document_support_pct": 62,
+  "outputs_with_authority_defined_pct": 90,
+  "notes": [
+    "Muestra de ejemplo para validar formato de coverage.",
+    "Los porcentajes reales deben salir de chequeos del proyecto."
+  ]
+}

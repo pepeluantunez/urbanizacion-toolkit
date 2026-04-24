@@ -1,4 +1,4 @@
-# urbanizacion-toolkit
+﻿# urbanizacion-toolkit
 
 Toolkit reusable para proyectos tecnicos de urbanizacion.
 
@@ -12,7 +12,7 @@ Toolkit reusable para proyectos tecnicos de urbanizacion.
 
 ## Archivos clave
 
-- `AGENTS_CORE.md`: entrada corta del toolkit
+- `AGENTS.md`: entrada corta y unica del toolkit
 - `SYSTEM_RULES.md`: reglas globales
 - `TASK_TYPES.md`: tipos de tarea
 - `IGNORE_DEFAULTS.md`: ruido a excluir
@@ -28,6 +28,7 @@ Toolkit reusable para proyectos tecnicos de urbanizacion.
 ## Familias
 
 - `tools/`
+- `tools/python/` para scripts canonicos de bc3 y Excel
 - `scripts/`
 - `catalog/`
 - `tests/`

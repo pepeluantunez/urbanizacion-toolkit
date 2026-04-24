@@ -1,5 +1,38 @@
 [
   {
+    "id": "bc3-tools",
+    "path": "tools/python/bc3_tools.py",
+    "kind": "tool",
+    "domain": "bc3",
+    "summary": "Opera BC3 de forma determinista: info, export, merge, recalc, validate y modificaciones controladas.",
+    "inputs": ["bc3"],
+    "outputs": ["bc3", "csv", "informe de diferencias"],
+    "safety": "safe-write",
+    "tags": ["bc3", "budget", "deterministic", "canonical"]
+  },
+  {
+    "id": "excel-tools",
+    "path": "tools/python/excel_tools.py",
+    "kind": "tool",
+    "domain": "office",
+    "summary": "Lee y extrae datos de Excel de forma determinista antes de cualquier analisis del LLM.",
+    "inputs": ["xlsx", "xlsm"],
+    "outputs": ["csv", "json", "inspeccion de hojas"],
+    "safety": "read-only",
+    "tags": ["excel", "read", "deterministic", "canonical"]
+  },
+  {
+    "id": "mediciones-validator",
+    "path": "tools/python/mediciones_validator.py",
+    "kind": "tool",
+    "domain": "traceability",
+    "summary": "Cruza cantidades BC3 vs Excel sin delegar el calculo al LLM.",
+    "inputs": ["bc3", "xlsx", "sheet", "columnas"],
+    "outputs": ["informe de diferencias de medicion"],
+    "safety": "read-only",
+    "tags": ["traceability", "measurements", "excel", "bc3"]
+  },
+  {
     "id": "check-office-mojibake",
     "path": "tools/office/check_office_mojibake.ps1",
     "kind": "tool",
@@ -114,10 +147,43 @@
     "path": "scripts/install_project_toolkit.ps1",
     "kind": "script",
     "domain": "bootstrap",
-    "summary": "Instala el toolkit reusable en un destino objetivo.",
-    "inputs": ["targetPath"],
+    "summary": "Instala el toolkit reusable en un destino objetivo con opcion para no sobrescribir ficheros existentes.",
+    "inputs": ["targetPath", "skipExisting"],
     "outputs": ["estructura instalada"],
     "safety": "safe-write",
     "tags": ["bootstrap", "toolkit", "install"]
+  },
+  {
+    "id": "check-ecosystem-alignment",
+    "path": "scripts/check_ecosystem_alignment.ps1",
+    "kind": "script",
+    "domain": "automation",
+    "summary": "Compara alineacion por hash entre obra, toolkit y plantilla a partir de un manifiesto.",
+    "inputs": ["manifestPath", "outputFormat", "outPath"],
+    "outputs": ["reporte de alineacion"],
+    "safety": "read-only",
+    "tags": ["alignment", "ecosystem", "hash", "governance"]
+  },
+  {
+    "id": "docx-utf8-helpers",
+    "path": "scripts/docx_utf8_helpers.ps1",
+    "kind": "script",
+    "domain": "office",
+    "summary": "Expande, reempaqueta y sanea contenedores DOCX con control de UTF-8 y mojibake.",
+    "inputs": ["docx", "temp directory", "xml"],
+    "outputs": ["docx reparado o paquete expandido"],
+    "safety": "safe-write",
+    "tags": ["docx", "utf8", "openxml", "repair"]
+  },
+  {
+    "id": "detectar-impacto-cambios",
+    "path": "scripts/detectar_impacto_cambios.ps1",
+    "kind": "script",
+    "domain": "traceability",
+    "summary": "Analiza cambios del repo y propone impactos, acciones derivadas y verificaciones recomendadas.",
+    "inputs": ["root", "paths", "apply"],
+    "outputs": ["informe de impacto"],
+    "safety": "read-only",
+    "tags": ["impact", "changes", "triage", "traceability"]
   }
 ]

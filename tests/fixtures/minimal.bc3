@@ -1,0 +1,6 @@
+~V|OBRA|3.1|bc3_tools_test|minimal.bc3|ANSI|
+~C|REC01|h|Mano de obra oficial 1a|15.0000||0|
+~C|PAR01|m2|Partida de prueba|15.0000||0|
+~C|CAP01||Capitulo 01|0||EA|
+~D|PAR01|REC01\1\1.0000\|
+~B|CAP01|PAR01\1\|
