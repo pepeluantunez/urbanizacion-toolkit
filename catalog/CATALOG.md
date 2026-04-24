@@ -9,6 +9,7 @@
 | find-in-workspace | tool | automation | read-only | `tools/automation/find_in_workspace.ps1` | Busca texto con fallback seguro cuando rg falla o no esta disponible. |
 | check-ecosystem-alignment-local | tool | automation | read-only | `tools/automation/check_ecosystem_alignment.ps1` | Ejecuta localmente el checker canonico de alineacion del ecosistema usando el manifiesto del proyecto. |
 | check-machine-guard | tool | automation | read-only | `tools/automation/check_machine_guard.ps1` | Ejecuta la guarda local minima del proyecto: contrato de repo y alineacion toolkit/plantilla/obra. |
+| update-project-foundation | tool | automation | safe-write | `tools/automation/update_project_foundation.ps1` | Sincroniza toolkit, actualiza `toolkit.lock.json` con commits reales y ejecuta la guarda local. |
 | check-office-mojibake | tool | office | read-only | `tools/office/check_office_mojibake.ps1` | Comprueba mojibake y corrupcion textual en contenedores Office. |
 | check-docx-tables-consistency | tool | office | read-only | `tools/office/check_docx_tables_consistency.ps1` | Valida tablas visibles, captions y coherencia tipografica en DOCX. |
 | check-excel-formula-guard | tool | office | read-only | `tools/office/check_excel_formula_guard.ps1` | Protege formulas en libros Excel y detecta perdidas o cambios inesperados. |

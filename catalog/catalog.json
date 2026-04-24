@@ -77,6 +77,17 @@
     "tags": ["guard", "repo-contract", "ecosystem", "bootstrap"]
   },
   {
+    "id": "update-project-foundation",
+    "path": "tools/automation/update_project_foundation.ps1",
+    "kind": "tool",
+    "domain": "automation",
+    "summary": "Sincroniza toolkit, actualiza toolkit.lock.json con commits reales y ejecuta la guarda local.",
+    "inputs": ["toolkit path", "template path", "skip flags"],
+    "outputs": ["foundation summary"],
+    "safety": "safe-write",
+    "tags": ["foundation", "sync", "guard", "lock"]
+  },
+  {
     "id": "check-office-mojibake",
     "path": "tools/office/check_office_mojibake.ps1",
     "kind": "tool",
